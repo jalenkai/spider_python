@@ -25,16 +25,13 @@ import command as comm
 import threading
 import requests
 
-sqlserverIP = '192.168.5.60'
-m_id="38"
+sqlserverIP = 'xxx.xxx.xxx.xxx'#sql位置ip
+m_id="電商ID"
 trackcode =str("https://adcenter.conn.tw/redirect_wa.php?k=f7c39f1a7e62bb984307e385e460604b&tourl=")
 
 ipaddr = comm.get_ip_address()
-UspApiPatch = r"C:\FP_GOODS\Data\books"
-if (ipaddr.find(".60") >0) :
-   Dstfilename = r"C:\FP_GOODS\Data\books"
-else:
-   Dstfilename = r"E:\Data\books"
+UspApiPatch = "SQL位置檔案的路徑"
+Dstfilename ="檔案產生的路徑"
 cname=""
 setPageCnt = 300
 runtimeint = 7
@@ -429,7 +426,7 @@ class GetbooksSpider(object):
               except:
                  time.sleep(2) ## delays for 2 seconds
                  try:
-                     filenameR = str(r'C:\FP_GOODS\Data\books\books' + str(recno) + '.xml')    
+                     filenameR = str(r'C:\XXXX\Data\books\books' + str(recno) + '.xml')    
                      execSQL = "EXEC SetXmlFile2PrimallTemp '" + str(m_id)  + "','" + filenameR + "'"
                      comm.CommitTable_dbname(execSQL,sqlserverIP,"apitemptb")  
                      os.rename(filename,filename + ".ok")
@@ -478,13 +475,10 @@ def long_time_task(name,_cookies,_useragent):
    #由目錄開始爬取              
    #取得 TABLE 中目錄數
    ipaddr = comm.get_ip_address()
-   if (ipaddr.find(".60") >0) or (ipaddr.find(".58") >0) :
-      strSQL = str('select * from db_categoryTemp with(nolock) where m_id=' + str(m_id)  + ' and recno % ' + str(runtimeint) + '='+ str(name) + '  and doflag =0 order by Recno   ')
-   else:
-      strSQL = str('select * from db_categoryTemp with(nolock) where m_id=' + str(m_id)  + ' and recno % ' + str(runtimeint) + '='+ str(name) + '  and doflag =0 order by Recno  desc ')
+   
+   strSQL = str('select * from db_categoryTemp with(nolock) where m_id=' + str(m_id)  + ' and recno % ' + str(runtimeint) + '='+ str(name) + '  and doflag =0 order by Recno   ')
 
-
-   goods_conn = pymssql.connect(server=str(sqlserverIP), user='sa', password='tony', database='apitemptb', timeout=2400, login_timeout=600)
+   goods_conn = pymssql.connect(server=str(sqlserverIP), user='XXX', password='XXX', database='XXX', timeout=2400, login_timeout=600)
    cursor = goods_conn.cursor()
    cursor.execute(strSQL)
    row = cursor.fetchone()
@@ -530,7 +524,7 @@ def cd_dvd_task(name,_cookies,_useragent):
    else:
       strSQL = str("select * from db_categoryTemp with(nolock) where m_id=" + str(m_id)  + " and (c_name like '%合輯%' or c_name like '%CD＞%' or c_name like '%DVD＞%') and doflag=0 order by recno desc ")
 
-   goods_conn = pymssql.connect(server=str(sqlserverIP), user='sa', password='tony', database='apitemptb', timeout=2400, login_timeout=600)
+   goods_conn = pymssql.connect(server=str(sqlserverIP), user='XXX', password='XXX', database='XXX', timeout=2400, login_timeout=600)
    cursor = goods_conn.cursor()
    cursor.execute(strSQL)
    row = cursor.fetchone()
