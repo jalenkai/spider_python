@@ -13,4 +13,7 @@ klook<br>
 3.商品資訊產生json檔<br>
 4.dice字典運用<br>
 
+<p></p>
+Wiki<br>
+1.傳入關鍵字傳出Wiki資訊
 
