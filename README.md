@@ -6,5 +6,11 @@
 3.資料分批運作<br>
 4.商品產生XML檔方法<br>
 
+<p>klookfor_google_cloud.py</p>
+klook<br>
+1.google.cloud連結方式
+2.google bigquery 運用
+3.商品資訊產生json檔
+4.dice字典運用
 
 
