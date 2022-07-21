@@ -15,6 +15,6 @@ klook<br>
 
 <p>GetWikiSpider.py</p>
 Wiki<br>
-1.傳入關鍵字傳出Wiki資訊
-2.class寫法
+1.傳入關鍵字傳出Wiki資訊<br>
+2.class寫法<br>
 
