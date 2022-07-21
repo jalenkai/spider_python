@@ -8,9 +8,9 @@
 
 <p>klookfor_google_cloud.py</p>
 klook<br>
-1.google.cloud連結方式
-2.google bigquery 運用
-3.商品資訊產生json檔
-4.dice字典運用
+1.google.cloud連結方式<br>
+2.google bigquery 運用<br>
+3.商品資訊產生json檔<br>
+4.dice字典運用<br>
 
 
