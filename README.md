@@ -1,4 +1,4 @@
-<b>使用python爬蟲電商範例</b>
+<b>python爬蟲電商範例</b>
 <p>books.py</p>
 博客來購物網站範例<br>
 1.非同步執行apply_async或執行緒threads方法<br>
