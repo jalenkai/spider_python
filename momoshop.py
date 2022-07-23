@@ -246,7 +246,7 @@ class GetmomoshopSpider(object):
                  #彙整至 [apitemptb].[dbo].db_momoproductList_xml_spider 
                  execSQL = "EXEC SetXmlFile2PrimallTemp '14_1','" + filenameR + "'"
 
-                 comm.CommitTable_dbname(execSQL,sqlserverIP,"apitemptb")
+                 comm.CommitTable_dbname(execSQL,sqlserverIP,"xxx")
                  os.rename(filename,filename + ".ok")
            except:
                  os.rename(filename,filename + ".error.ok") 
@@ -389,7 +389,7 @@ def GetCateData(url):
                                       print('新增momoshop第4層目錄%s...' % (str(c_link)))
                                       strSQL =  "INSERT INTO [dbo].[db_PricateTemp] ([m_id],[cateUrl],[cate_name],[cate_Root],[createdate],[modifydate])"
                                       strSQL +=  " VALUES ('" + str(m_id) + "','" + str(c_link)  + "',N'" + str(c_name)  + "','4',getdate(),getdate()) "
-                                      comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"apitemptb",3600)
+                                      comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
                                       dchk =False
                                        
                                    #l_code=1912900000&mdiv=1099600000-bt_0_996_10-&ctype=B"
@@ -472,42 +472,6 @@ def GetCateData(url):
             except:
                 pass
 
-#跑spider 後的收錄
-def runNowPmTempdb():
-   getnow = datetime.datetime.now()
-   getnowhour = int(getnow.hour)
-   if (getnowhour >=15): #for db_momoproductList_xml_spider
-       strSQL = " DELETE e2 "
-       strSQL += " from db_momoproductList_xml_spider e2  with(ROWLOCK) where e2.Recno not in(select max(e1.Recno) "
-       strSQL += " from db_momoproductList_xml_spider e1 with(nolock)  where "
-       strSQL += " e1.ProductID =e2.ProductID);"
-       strSQL += " DELETE  db_momoproductList_xml_spider WHERE (CategoryName LIKE N'%圖書影音%') "
-       strSQL += " OR CategoryName LIKE N'%書展%' OR CategoryName LIKE N'%知識/理財＞%' OR CategoryName LIKE N'%閱讀/文學＞%';"
-       comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-
-       #在db_momoproductList_xml沒有此商品才 新增或更新
-       strSQL = " INSERT INTO [dbo].[db_momoproductList_xml] "
-       strSQL += " ([ProductID],[ProductName],[ProductSalePrice],[BuyURL],[cate_recno],[CategoryURL],[CategoryName],[ProductImage],[ProductImage2],[SalePrice],[Availability],[doflag],[creatdate],[modifydate],[ShortProductDescription]) "
-       strSQL += " select [ProductID],[ProductName],[ProductSalePrice],[BuyURL],[cate_recno],[CategoryURL],[CategoryName],ProductImage2,ProductImage2,SalePrice,1,0,getdate(),getdate(),isnull(ProductDescription,'') "
-       strSQL += " from [apitemptb].[dbo].db_momoproductList_xml_spider xmltemp_spider with(nolock) "   
-       strSQL += " where  not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml xmltemp with(nolock) "
-       strSQL += " where xmltemp.ProductID=xmltemp_spider.ProductID) and xmltemp_spider.doflag=0;"
-
-       strSQL += " update xmltemp set xmltemp.[ProductName]=xmltemp_spider.[ProductName], "
-       strSQL += " xmltemp.ProductSalePrice=xmltemp_spider.ProductSalePrice, "
-       strSQL += " xmltemp.SalePrice=xmltemp_spider.SalePrice,xmltemp.doflag=0,xmltemp.ShortProductDescription=isnull(xmltemp_spider.ProductDescription,'') "
-       strSQL += "  from [apitemptb].[dbo].db_momoproductList_xml xmltemp with(rowlock) "
-       strSQL += " , [apitemptb].[dbo].db_momoproductList_xml_spider xmltemp_spider with(nolock) "   
-       strSQL += " where xmltemp.ProductID=xmltemp_spider.ProductID and (xmltemp.SalePrice<>xmltemp_spider.SalePrice) "
-       strSQL += " and xmltemp_spider.doflag=0;"
-
-       strSQL += " update [apitemptb].[dbo].db_momoproductList_xml_spider set doflag=1 where doflag=0;"
-       comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",5400)
-       #處理db_momoproductList_xml
-       strSQL = " update [apitemptb].[dbo].db_momoproductList_xml set doflag=0;"
-       comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",5400) 
-        
-       comm.GotoPressExe("C:\\FP_GOODS\\GetGoods_batch4.exe",'/input=14,99')
 
 #20220221 BY JALEN 將異常沒有收錄的XML檔轉入,並更新db_categoryTemp
 def setFiles2TempDB():
@@ -566,107 +530,18 @@ if __name__ == '__main__':
       driver.quit()
 
 
-
-   TraceCodePC = comm.getdb_merchantData(m_id,'TraceCodePC')#取出電商資料
-   trackcode =  str(TraceCodePC)
-
    setFiles2TempDB()
    comm.chkPatchDelFilesAll(Dstfilename , "momoshop*.ok") #刪除xml暫存檔   
 
    if (isGetCatTemp()==True): #爬目錄############################
       if today2weekday==6 or today2weekday==7 :
-         #db_PricateTemp##########################
-         strSQL = "delete db_PricateTemp where m_id='" +str(m_id) + "'"
-         comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)               
+         #存入categorydict     
          GetCateData('https://www.momoshop.com.tw/category/LgrpCategory.jsp?l_code=4301100000')
-
-         os.system("cls") #清除畫面
-         print('開始匯入momoshop目錄至db_category tb')
-         strSQL = " DELETE e2 "
-         strSQL += " from db_PricateTemp e2 with(rowlock) where e2.Recno not in(select max(e1.Recno)  "
-         strSQL += " from db_PricateTemp e1 with(rowlock)  where "
-         strSQL += " e1.cateUrl = e2.cateUrl and e1.M_ID='" + m_id + "' and e2.M_ID='" + m_id + "')  and e2.M_ID='" + m_id + "'"
-         comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-         try:
-            driver.quit()
-            sys.exit(0)
-         except:
-            print("close")
-
-         try:
-             os._exit(0)
-         except:
-             print("close")
-
-      strSQL = "select cnt=count(*) from db_PricateTemp where m_id='" +str(m_id) + "'"
-      cntdoflag = comm.getFildValue(strSQL,sqlserverIP,0,"xxx")
-      if (int(cntdoflag)>0):
-         #匯入db_category
-         print('INSERT INTO db_category,中請稍後...')
-         if today2weekday==1 or today2weekday==6 or today2weekday==7 :
-            strSQL = " INSERT INTO GOODS_DB58.goods.dbo.db_category ([m_id],[c_link],[c_name],[createdate],[modifydate],doflag) "
-         else:
-            strSQL = " INSERT INTO GOODS_DB59.goods.dbo.db_category ([m_id],[c_link],[c_name],[createdate],[modifydate],doflag) "
-         strSQL += " SELECT m_id,cateUrl,cate_name,getdate(),getdate(),1 "
-         strSQL += " FROM [apitemptb].[dbo].[db_PricateTemp]  WHERE  M_ID='" + m_id + "'"
-         strSQL += " and not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml  with(nolock) where CategoryURL=cateurl)  "
-         if today2weekday==1 or today2weekday==6 or today2weekday==7 :
-            strSQL += "and not exists (select 1 from GOODS_DB58.goods.dbo.db_category with(nolock) where c_link=cateurl) "
-         else:
-           strSQL += "and not exists (select 1 from GOODS_DB59.goods.dbo.db_category with(nolock) where c_link=cateurl) "
-
-         strSQL += " group by m_id,cateUrl,cate_name;"
-         comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-         #匯入db_categoryTemp
-         if (today2weekday==6 or today2weekday==7) :
-            strSQL = " delete [apitemptb].[dbo].db_categoryTemp WHERE  M_ID='" + m_id + "';"
-            comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-
-         strSQL = "select cnt=count(*) from [apitemptb].[dbo].db_momoproductList_xml_spider where doflag=0 and creatdate >= (select min(modifydate) from db_momoproductList_xml_spider nolock);"
-         cntdoflag = comm.getFildValue(strSQL,sqlserverIP,0,"xxx")
-
-         if (int(cntdoflag)==0):
-            strSQL = "  truncate table [apitemptb].[dbo].db_momoproductList_xml_spider;"
-            comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",1200)
-         #在db_momoproductList_xml沒有收錄的目錄才要spider資料
-         strSQL = " INSERT INTO [dbo].[db_categoryTemp] ([m_id],[c_link],[c_name],[createdate],[modifydate],doflag) "
-         strSQL += " SELECT m_id,cateUrl,cate_name,getdate(),getdate(),0 "
-         strSQL += " FROM [apitemptb].[dbo].[db_PricateTemp]  WHERE  M_ID='" + m_id + "'"
-         strSQL += " and not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml with(nolock) where CategoryURL=cateurl) "
-         strSQL += " and not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml_spider with(nolock) where CategoryURL=cateurl) "
-         strSQL += "  and not exists (select 1 from db_categoryTemp with(nolock) where c_link=cateurl)  group by m_id,cateUrl,cate_name;"
-         comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-   #if (isGetCatTemp()==True): 全部爬完目錄######################
 
    getnow = datetime.datetime.now()
    getnowhour = int(getnow.hour)#一日的開始,必須初始化
-   if (today2weekday<6) and (getnowhour<=6) : #20220208 採收多少算多少方式因為當日spider不完,會放到隔日啟動
-       print('update db_categoryTemp.doflag=0,中請稍後...')
-       strSQL = " update [apitemptb].[dbo].db_categoryTemp with(rowlock) set doflag=0 WHERE  M_ID='" + m_id + "';"
-       comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-   else:
-       print('接續spider')
-       if (today2weekday<6) and (getnowhour<=12) :
-          strSQL = " update c set doflag=0  FROM [apitemptb].[dbo].[db_categoryTemp] c with(rowlock) "
-          strSQL += "  WHERE  c.M_ID='" + m_id + "'"
-          strSQL += " and not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml with(nolock)     where CategoryURL=c.c_link)  "
-          strSQL += "  and not exists (select 1 from [apitemptb].[dbo].db_momoproductList_xml_spider with(nolock) where CategoryURL=c.c_link) "
-          strSQL += "  and  exists (select 1 from [apitemptb].[dbo].[db_PricateTemp]  with(nolock) where c.c_link=cateurl)  "
-          comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-
-   #20220210 排除書的資料
-   strSQL = " update db_categoryTemp with(rowlock) set doflag=1 where m_id='" + m_id + "' and doflag=0 and (c_name like N'閱讀/文學＞%' or c_name like N'圖書影音＞%' or c_name like N'文教/藝術%' or c_name like N'知識/理財%' );"
-   strSQL += " delete db_momoproductList_xml_spider  where (categoryname like N'閱讀/文學＞%' or categoryname like N'圖書影音＞%' or categoryname like N'文教/藝術%' or categoryname like N'知識/理財%' );"
-   comm.CommitTable_dbnameTimeout(strSQL,sqlserverIP,"xxx",3600)
-
-   getnow = datetime.datetime.now()
-   getnowhour = int(getnow.hour)
-
-   strSQL = "select cnt=count(*) from [apitemptb].[dbo].db_momoproductList_xml_spider where doflag=0 and creatdate >= (select min(modifydate) from db_momoproductList_xml_spider nolock);"
-   cntdoflag = comm.getFildValue(strSQL,sqlserverIP,0,"xxx")
-   if (today2weekday<6)  and (int(cntdoflag)>=300000) :#20220207 大於15:00且收錄大於50萬直接收錄(視下午收錄狀況判斷是否要收)
-         runNowPmTempdb()
-  
+    
+   #由categorydict 取出爬
    print('Parent process %s.' % os.getpid())
    # 建立 runtimeint 個子執行緒
    threads = []
@@ -684,25 +559,7 @@ if __name__ == '__main__':
    setFiles2TempDB()
    comm.chkPatchDelFilesAll(Dstfilename , "momoshop*.ok") #刪除xml暫存檔   
 
-   if (isGetCatTemp()==True) and (ipaddr.find(".60") >0)  : #for db_momoproductList_xml_spider
-       runNowPmTempdb()
-   else:
-          if (isGetCatTemp()==False):#尚未爬完
-             time.sleep(120)
-              # 建立 runtimeint 個子執行緒
-             threads = []
-             for i in range(runtimeint):
-                threads.append(threading.Thread(target = long_time_task, args = (i,_cookies,_useragent,)))
-             threads[i].start()
 
-          # 主執行緒繼續執行自己的工作
-          # 等待所有子執行緒結束
-          for i in range(runtimeint):
-              time.sleep(5)
-              threads[i].join()
-          print('等待全部processes 做完...')
-          if (isGetCatTemp()==True):#已爬完
-              runNowPmTempdb()
    try:
       driver.quit()
       sys.exit(0)
