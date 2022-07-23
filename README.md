@@ -18,3 +18,13 @@ Wiki<br>
 1.傳入關鍵字傳出Wiki資訊<br>
 2.class寫法<br>
 
+<p>momoshop.py</p>
+momo購物網<br>
+先爬商品分類項目,在爬商品內容
+1.網站內部 api request 爬法<br>
+2.requests.post 傳值 爬法<br>
+3.傳出json使用<br>
+4.正規表示式用法<br>
+5.匯出xml檔案<br>
+6.連結ms sql<br>
+
