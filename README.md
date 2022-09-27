@@ -2,6 +2,19 @@
 ## 實務上爬蟲目的
 - 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
 - API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
+## HTML原始碼節點認識與搜尋方法
+> BeautifulSoup安裝
+- 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
+-- 透過pip指令來進行安裝
+-- pip install beautifulsoup4
+-- pip install requests
+
+- 以HTML標籤及屬性搜尋節點
+- 以CSS屬性搜尋節點
+- 搜尋父節點
+- 搜尋前、後節點
+- 取得屬性值
+- 取得連結文字
 ## 爬蟲常用的套件
 - from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
 - from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
