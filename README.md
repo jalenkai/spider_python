@@ -72,12 +72,28 @@ print(result)
 
 ```
 
-2. find_all()：搜尋網頁中所有符合條件的HTML節點，如要更明確的搜尋，可以利用關鍵字參數(Keyword Argument)指定其屬性值。若執行結果搜出許多的HTML內容，也可以利用limit關鍵字參數(Keyword Argument)限制搜尋的節點數量，如下範例：
+2. find_all()：搜尋網頁中所有符合條件的HTML節點，如要更明確的搜尋，可以利用關鍵字參數(Keyword Argument)指定其屬性值。若執行結果搜出許多的HTML內容，也可以利用limit關鍵字參數(Keyword Argument)限制搜尋的節點數量，如下範例：(回傳了一個串列(List))
 
 ```
 result = soup.find_all("p", class="groupName", limit=3)
 print(result)
 
+```
+```
+同時搜尋多個HTML標籤，可以將標籤名稱打包成串列(List)後，傳入find_all()方法(Method)中即可，如下範例：
+result = soup.find_all(["h3", "p"], limit=2)
+print(result)
+```
+
+3. select_one()：當某一節點下只有單個子節點時
+```
+result = soup.find("h3", itemprop="headline")
+print(result.select_one("a"))
+```
+4. select()：某一節點下有多個子節點時
+```
+result = soup.find("div", itemprop="itemListElement")
+print(result.select("a"))
 ```
 
 * 以CSS屬性搜尋節點
