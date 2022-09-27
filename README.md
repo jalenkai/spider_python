@@ -1,4 +1,7 @@
 # python爬蟲
+## 實務上爬蟲目的
+- 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
+- API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
 ## 爬蟲常用的套件
 - from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
 - from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
