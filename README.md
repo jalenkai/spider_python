@@ -5,9 +5,9 @@
 ## HTML原始碼節點認識與搜尋方法
 > BeautifulSoup安裝
 - 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
--- 透過pip指令來進行安裝
--- pip install beautifulsoup4
--- pip install requests
+- 1.透過pip指令來進行安裝
+- 2.pip install beautifulsoup4
+- 3.pip install requests
 
 - 以HTML標籤及屬性搜尋節點
 - 以CSS屬性搜尋節點
