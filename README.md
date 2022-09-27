@@ -10,11 +10,11 @@
 1.透過pip指令來進行安裝
 2.pip install beautifulsoup4
 3.pip install requests
-'''
+```
 import requests
 response = requests.get(
     "https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=4300100018&TOP30=Y&sourcePageType=4")
-'''
+```
 > 以HTML標籤及屬性搜尋節點
 
 - 以CSS屬性搜尋節點
