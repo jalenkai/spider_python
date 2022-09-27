@@ -5,10 +5,17 @@
 ## HTML原始碼節點認識與搜尋方法
 > BeautifulSoup安裝
 - 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
+- 引用requests套件(Package)，透過get()方法，獲取網頁原始碼。
+
 * 1.透過pip指令來進行安裝
 * 2.pip install beautifulsoup4
 * 3.pip install requests
-- 引用requests套件(Package)，透過get()方法
+
+'''
+import requests
+response = requests.get(
+    "https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=4300100018&TOP30=Y&sourcePageType=4")
+'''
 > 以HTML標籤及屬性搜尋節點
 
 - 以CSS屬性搜尋節點
