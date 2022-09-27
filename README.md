@@ -2,6 +2,21 @@
 ## 實務上爬蟲目的
 - 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
 - API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
+## 爬蟲常用的套件
+* from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
+* from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
+* import urllib3 #提供網站get,post方法傳出原始碼(http.request)爬蟲利器)
+* import requests #提供網站get,post方法傳出原始碼(爬蟲利器)
+* import threading #提供多線程方法(執行序)技術的套件
+* from multiprocessing import Pool #提供非同步技術的套件
+* from lxml import etree  #提供xml文件的套件
+* import json #提供json文件的套件
+* import datetime,time #提供時間及日期的方法套件
+* import os #提供系統相關的套件
+* import pandas as pd #提供python字典物件的套件
+* import math #提供常用數學函數的套件
+* import csv #提供csv文件檔的套件
+* import logging #提供訊息紀錄方法套件(log檔)
 ## HTML原始碼節點認識與搜尋方法
 * BeautifulSoup安裝
 ** 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
@@ -48,27 +63,30 @@ print(soup.prettify())  #秀出排版後的HTML程式碼
 ```
 
 * 以HTML標籤及屬性搜尋節點
+** 由soup物件進行節點搜尋
+1. find() ：搜尋第一個符合條件的HTML節點
+
+```
+result = soup.find("title")
+print(result)
+
+```
+
+2. find_all()：搜尋網頁中所有符合條件的HTML節點，如要更明確的搜尋，可以利用關鍵字參數(Keyword Argument)指定其屬性值。若執行結果搜出許多的HTML內容，也可以利用limit關鍵字參數(Keyword Argument)限制搜尋的節點數量，如下範例：
+
+```
+result = soup.find_all("p", class="groupName", limit=3)
+print(result)
+
+```
 
 * 以CSS屬性搜尋節點
 *  搜尋父節點
 *  搜尋前、後節點
 *  取得屬性值
 *  取得連結文字
-## 爬蟲常用的套件
-* from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
-* from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
-* import urllib3 #提供網站get,post方法傳出原始碼(http.request)爬蟲利器)
-* import requests #提供網站get,post方法傳出原始碼(爬蟲利器)
-* import threading #提供多線程方法(執行序)技術的套件
-* from multiprocessing import Pool #提供非同步技術的套件
-* from lxml import etree  #提供xml文件的套件
-* import json #提供json文件的套件
-* import datetime,time #提供時間及日期的方法套件
-* import os #提供系統相關的套件
-* import pandas as pd #提供python字典物件的套件
-* import math #提供常用數學函數的套件
-* import csv #提供csv文件檔的套件
-* import logging #提供訊息紀錄方法套件(log檔)
+
+
 
 ## books.py
 > 博客來購物網站範例
