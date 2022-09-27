@@ -8,8 +8,9 @@
 - 1.透過pip指令來進行安裝
 - 2.pip install beautifulsoup4
 - 3.pip install requests
+- 引用requests套件(Package)，透過get()方法
+> 以HTML標籤及屬性搜尋節點
 
-- 以HTML標籤及屬性搜尋節點
 - 以CSS屬性搜尋節點
 - 搜尋父節點
 - 搜尋前、後節點
