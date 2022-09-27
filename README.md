@@ -11,11 +11,40 @@
 2. pip install beautifulsoup4
 3. pip install requests
 
->> 範例：
+** 將網頁的HTML程式碼擷取回來後，並引用BeautifulSoup類別(Class)，傳入取回的HTML結構字串，來解析型態來建物件，如下範例：
+
 ```
 import requests
+from bs4 import BeautifulSoup
+
 response = requests.get(
     "https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=4300100018&TOP30=Y&sourcePageType=4")
+soup = BeautifulSoup(response.text, "html.parser")
+print(soup.prettify())  #秀出排版後的HTML程式碼
+
+```
+
+> 擷取部分程式碼：
+
+```
+<html lang="zh">
+<head>
+<link rel="shortcut icon" href="/main/favicon.ico"/>
+<link rel="Bookmark" href="/main/favicon.ico"/>
+<link rel="icon" href="/main/favicon.ico" type="image/ico"/>
+<link rel="search" href="/search/openSearch.xml" type="application/opensearchdescription+xml" title="momo購物網"/>
+
+<link rel="canonical" href="https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=4300100018">
+<link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.momoshop.com.tw/category.momo?top30=y&cn=4300100018">
+
+<title>&#31558;&#38651;&#25490;&#34892;TOP30,&#39208;&#38263;&#25512;&#34214;,&#31558;&#35352;&#22411;&#38651;&#33126;,&#38651;&#33126;/&#32068;&#20214;-momo&#36092;&#29289;&#32178;</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="Title" content="&#31558;&#38651;&#25490;&#34892;TOP30,&#39208;&#38263;&#25512;&#34214;,&#31558;&#35352;&#22411;&#38651;&#33126;,&#38651;&#33126;/&#32068;&#20214;-momo&#36092;&#29289;&#32178;">
+<meta name="Author" content="momo購物網">
+<meta name="Subject" content="momoshop,momo購物網">
+.....部分程式碼.....
 ```
 
 * 以HTML標籤及屬性搜尋節點
