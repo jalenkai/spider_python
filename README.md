@@ -11,6 +11,7 @@
 2. pip install beautifulsoup4
 3. pip install requests
 
+>> 範例：
 ```
 import requests
 response = requests.get(
