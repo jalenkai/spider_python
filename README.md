@@ -36,7 +36,6 @@ response = requests.get(
     "https://www.momoshop.com.tw/category/DgrpCategory.jsp?d_code=4300100018&TOP30=Y&sourcePageType=4")
 soup = BeautifulSoup(response.text, "html.parser")
 print(soup.prettify())  #秀出排版後的HTML程式碼
-
 ```
 
 > 擷取部分程式碼：
