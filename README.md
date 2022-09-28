@@ -19,14 +19,14 @@
 * import logging #提供訊息紀錄方法套件(log檔)
 ## HTML原始碼節點認識與搜尋方法
 * BeautifulSoup安裝
-** 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
-** 引用requests套件(Package)，透過get()方法，獲取網頁原始碼。
+-- 用來解析HTML結構的套件(Package)，取回的網頁HTML結構，其提供的方法(Method)，輕鬆的搜尋及擷取網頁上所需的資料。
+-- 引用requests套件(Package)，透過get()方法，獲取網頁原始碼。
 
 1. 透過pip指令來進行安裝
 2. pip install beautifulsoup4
 3. pip install requests
-
-** 將網頁的HTML程式碼擷取回來後，並引用BeautifulSoup類別(Class)，傳入取回的HTML結構字串，來解析型態來建物件，如下範例：
+ 
+-- 將網頁的HTML程式碼擷取回來後，並引用BeautifulSoup類別(Class)，傳入取回的HTML結構字串，來解析型態來建物件，如下範例：
 
 ```
 import requests
