@@ -61,8 +61,8 @@ print(soup.prettify())  #秀出排版後的HTML程式碼
 .....部分程式碼.....
 ```
 
-* 以HTML標籤及屬性搜尋節點
-** 由soup物件進行節點搜尋
+> 以HTML標籤及屬性搜尋節點
+* 由soup物件進行節點搜尋
 1. find() ：搜尋第一個符合條件的HTML節點
 
 ```
@@ -117,32 +117,37 @@ print(result.select("a"))
 *  搜尋父節點
 1. 從某一個節點向上搜尋，可以使用BeautifulSoup套件(Package)的find_parent()或find_parents()方法(Method)，如下範例：
 ```
-result = soup.find("li", class_="abc")
+result = soup.find("a", class_="product_title")
 parents_soup = result.find_parents("a")
 print(parents_soup)
 ``` 
 *  搜尋前、後節點
 1. 在同一層級的節點，想要搜尋前一個節點，可以使用BeautifulSoup套件(Package)的find_previous_siblings()方法，如下範例：
 ```
-result = soup.find("li", itemprop="abc")
+result = soup.find("a", class_="product_title")
 previous_soup = result.find_previous_siblings("a")
 print(previous_soup)
 ```
 2. 相反的，在同一層級的節點，想要搜尋後一個節點，則使用find_next_siblings()方法(Method)，如下範例：
 ```
-result = soup.find("li", itemprop="abc")
+result = soup.find("a", class_="product_title")
 next_soup = result.find_next_siblings("p")
 print(next_soup)
 ```
 *  取得屬性值
 1. 利用find_all()方法搜尋網頁中所有<li>標籤且itemprop屬性值為headline的節點，在透過for迴圈讀取串列(List)中的節點，由於<li>標籤底下只有一個<a>標籤，就可以利用BeautifulSoup套件的select_one()方法進行選取，如下範例：
 ```
-titles = soup.find_all("h3", itemprop="headline")
+titles = soup.find_all("div", class_="product_image")
 for title in titles:
     print(title.select_one("a"))
 ```
-*  取得連結文字
-
+*  取得節點文字或內容
+1. 要取得<a>標籤的連結文字，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
+```
+titles = soup.find_all("div", class_="product_image")
+for title in titles:
+    print(title.select_one("img").getText())
+```
 
 
 ## books.py
