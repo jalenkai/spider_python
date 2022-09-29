@@ -6,10 +6,14 @@ from bs4 import BeautifulSoup
 
 
 class proxySpider(scrapy.Spider):
+    #爬蟲名字
     name = 'proxy_example'
+    #允許訪問的網域名稱
     allowed_domains = ['www.us-proxy.org']
+    #起始的url，指的是第一次訪問的url
     start_urls = ['http://www.us-proxy.org']
-
+    #執行start_urls 的調回方法，方法中的response 就是返回的對象
+    #相當於response = urllib.request.urlopen(urls)
     def parse(self, response):
         soup = BeautifulSoup(response.text, 'lxml')
         trs = soup.find_all("table" , class_ ='table table-striped table-bordered')
