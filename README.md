@@ -2,6 +2,11 @@
 ## 實務上爬蟲目的
 - 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
 - API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
+## 傻瓜級的scrapy爬蟲工具
+- 安裝套件：import scrapy or pip install scrapy
+- from bs4 import BeautifulSoup
+  1. 將在項目的spiders目錄下新建立一個新的 scrapySpider.py
+  
 ## 爬蟲常用的套件
 * from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
 * from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
@@ -62,6 +67,7 @@ print(soup.prettify())  #秀出排版後的HTML程式碼
 ```
 
 > 以HTML標籤及屬性搜尋節點
+* 以下皆使用BeautifulSoup套件(Package)方法
 * 由soup物件進行節點搜尋
 1. find() ：搜尋第一個符合條件的HTML節點
 
@@ -142,7 +148,7 @@ for title in titles:
     print(title.select_one("a"))
 ```
 *  取得節點文字或內容
-1. 要取得<a>標籤的連結文字，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
+1. 要取得<div>標籤的連結文字或內容，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
 ```
 titles = soup.find_all("div", class_="product_image")
 for title in titles:
