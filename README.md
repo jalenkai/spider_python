@@ -5,8 +5,10 @@
 ## 傻瓜級的scrapy爬蟲工具
 - 安裝套件：import scrapy or pip install scrapy
 - from bs4 import BeautifulSoup
+  * 測試一個py
   1. 將在項目的spiders目錄下新建立一個新的 scrapySpider.py
-  
+  2. cmd
+  3. 執行 scrapy  runspider C:\[py路徑]\scrapySpider.py
 ## 爬蟲常用的套件
 * from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
 * from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
