@@ -1,4 +1,5 @@
 # python爬蟲
+##
 ## 實務上爬蟲目的
 - 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
 - API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
@@ -156,9 +157,9 @@ for title in titles:
     print(title.select_one("a"))
 ```
 *  取得節點文字或內容
-1. 要取得<div>標籤的連結文字或內容，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
+1. 要取得<li>標籤的連結文字或內容，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
 ```
-titles = soup.find_all("div", class_="product_image")
+titles = soup.find_all("li", class_="product_image")
 for title in titles:
     print(title.select_one("img").getText())
 ```
@@ -170,7 +171,7 @@ for title in titles:
 2. 連結MS-SQL資料庫
 3. 資料分批運作
 4. 商品產生XML檔方法
-## klookfor_google_cloud.py
+## klook for_google_cloud.py
 > klook
 1. google.cloud連結方式
 2. google bigquery 運用
