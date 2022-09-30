@@ -9,6 +9,13 @@
   1. 將在項目的spiders目錄下新建立一個新的 scrapySpider.py
   2. cmd
   3. 執行 scrapy  runspider C:\[py路徑]\scrapySpider.py
+- 常用語法：
+  * allow=() 正規表示式，提取符合正規的連結
+  * deny=() 正则表达式，拒绝符合正規的連結
+  * allow_domains() 允許的域名
+  * deny_domains=() 拒絕的域名
+  * restrict_xpaths=() 提取符合xpath規則的連結
+  * restract_css=() 提取符合css規則的連結 
 ## 爬蟲常用的套件
 * from bs4 import BeautifulSoup  #將原始碼轉換lxml結構(結構化)
 * from selenium import webdriver #是用瀏覽器爬蟲之工具(動態網站技術的利器)
@@ -46,7 +53,6 @@ print(soup.prettify())  #秀出排版後的HTML程式碼
 ```
 
 > 擷取部分程式碼：
-
 ```
 <html lang="zh">
 <head>
