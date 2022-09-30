@@ -150,7 +150,7 @@ next_soup = result.find_next_siblings("p")
 print(next_soup)
 ```
 *  取得屬性值
-1. 利用find_all()方法搜尋網頁中所有<li>標籤且itemprop屬性值為headline的節點，在透過for迴圈讀取串列(List)中的節點，由於<li>標籤底下只有一個<a>標籤，就可以利用BeautifulSoup套件的select_one()方法進行選取，如下範例：
+1. 利用find_all()方法搜尋網頁中所有<li>標籤且itemprop屬性值為headline的節點，在透過for迴圈讀取串列(List)中的節點，由於之標籤底下只有一個<a>標籤，就可以利用BeautifulSoup套件的select_one()方法進行選取，如下範例：
 ```
 titles = soup.find_all("div", class_="product_image")
 for title in titles:
@@ -163,7 +163,7 @@ titles = soup.find_all("li", class_="product_image")
 for title in titles:
     print(title.select_one("img").getText())
 ```
-
+2. 由於class為Python保留字，所以我們在這裡要使用「class_」來表示。
 
 ## books.py
 > 博客來購物網站範例
