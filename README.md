@@ -157,7 +157,7 @@ for title in titles:
     print(title.select_one("a"))
 ```
 *  取得節點文字或內容
-1. 要取得<li>標籤的連結文字或內容，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
+1. 要取得之標籤的連結文字或內容，可以利用BeautifulSoup套件(Package)的getText()方法(Method)，如下範例：
 ```
 titles = soup.find_all("li", class_="product_image")
 for title in titles:
