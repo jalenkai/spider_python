@@ -110,7 +110,7 @@ result = soup.find("div", class_="itemListElement")
 print(result.select("a"))
 ```
 
-* 以CSS屬性搜尋節點
+- 以CSS屬性搜尋節點
 1. 依據HTML的css屬性來進行節點的搜尋
 2. 使用 class 中的關鍵字參數(Keyword Argument)來進行css屬性值的指定
 3. find()：搜尋第一個符合指定的HTML標籤及css屬性值的節點
