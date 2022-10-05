@@ -3,7 +3,7 @@
 ## 實務上爬蟲目的
 - 將網站的資料來進行分析或運用，而取得的方式除了透過網站所提供的API(Application Programming Interface)外，也可以利用Python來開發爬蟲程式，將網頁的HTML內容下載下來。
 - API(Application Programming Interface)：通常網站提供URL傳出JOSN或XML格式，呈現在網站內容上。
-## 傻瓜級的scrapy爬蟲工具
+## scrapy爬蟲工具
 - 安裝套件：import scrapy or pip install scrapy
 - from bs4 import BeautifulSoup
   * 測試一個py
@@ -12,7 +12,7 @@
   3. 執行 scrapy  runspider C:\[py路徑]\scrapySpider.py
 - 常用語法：
   * allow=() 正規表示式，提取符合正規的連結
-  * deny=() 正则表达式，拒绝符合正規的連結
+  * deny=() 正規表示式，拒绝符合正規的連結
   * allow_domains() 允許的域名
   * deny_domains=() 拒絕的域名
   * restrict_xpaths=() 提取符合xpath規則的連結
